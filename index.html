@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width">
     <title>Eggly</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheets/normalize.css" />
     <link rel="stylesheet" href="stylesheets/bootstrap.min.css" />
     <link rel="stylesheet" href="stylesheets/eggly.css" />
@@ -23,10 +24,26 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <div ng-repeat="bookmark in bookmarks | filter: { category: currentCategory.name }">
             <button type="button" class="close">&times;</button>
-            <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button type="button" ng-click="startEditing()" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
             <a href="{{bookmark.url}}" target="_blank">{{bookmark.title}}</a>
           </div>
           <hr/>
+          <!-- CREATING -->
+          <div ng-if="shouldShowCreating()">
+            <button type="button" ng-click="startCreating()" class="btn btn-link">
+              <span class="glypicon glyphicon-plus"></span>
+              Create bookmark
+            </button>
+            <div ng-if="checkCreating()">
+              Create a bookmark!
+              <button type="button" class="btn btn-default btn-lg pull-right" ng-click="cancelCreating()">Cancel</button>
+            </div>
+          </div>
+          <!-- EDITING -->
+          <div ng-if="shouldShowEditing()">
+            Edit a bookmark!
+              <button type="button" class="btn btn-default btn-lg pull-right" ng-click="cancelEditing()">Cancel</button>
+          </div>
         </div>
       </div>
     </div>

@@ -24,6 +24,8 @@ app.controller('EgglyController', ['$scope', function($scope) {
 
   function setCurrentCategory(category) {
     $scope.currentCategory = category;
+    cancelCreating();
+    cancelEditing();
   }
 
   function isCurrentCategory(category) {
@@ -33,5 +35,49 @@ app.controller('EgglyController', ['$scope', function($scope) {
 
   $scope.setCurrentCategory = setCurrentCategory;
   $scope.isCurrentCategory  = isCurrentCategory;
+
+  //===========================================================================
+  // CREATING AND EDITING STATES
+  //===========================================================================
+  $scope.isCreating = false;
+  $scope.isEditing  = false;
+
+  function startCreating() {
+    $scope.isCreating = true;
+    $scope.isEditing  = false;
+  }
+
+  function cancelCreating() {
+    $scope.isCreating = false;
+  }
+
+  function startEditing() {
+    $scope.isCreating = false;
+    $scope.isEditing  = true;
+  }
+
+  function cancelEditing() {
+    $scope.isEditing = false;
+  }
+
+  function shouldShowCreating() {
+    return $scope.currentCategory && !$scope.isEditing;
+  }
+
+  function shouldShowEditing() {
+    return $scope.isEditing && !$scope.isCreating;
+  }
+
+  function checkCreating() {
+    return $scope.isCreating == true;
+  }
+
+  $scope.checkCreating      = checkCreating;
+  $scope.startCreating      = startCreating;
+  $scope.cancelCreating     = cancelCreating;
+  $scope.startEditing       = startEditing;
+  $scope.cancelEditing      = cancelEditing;
+  $scope.shouldShowCreating = shouldShowCreating;
+  $scope.shouldShowEditing  = shouldShowEditing;
 
 }]);
