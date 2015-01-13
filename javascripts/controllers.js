@@ -54,10 +54,6 @@ app.controller('EgglyController', ['$scope', function($scope) {
     resetCreateForm();
   }
 
-  $scope.createBookmark = createBookmark;
-
-  $scope.editedBookmark = null;
-
   function setEditedBookmark(bookmark) {
     $scope.editedBookmark = angular.copy(bookmark);
   }
@@ -75,9 +71,18 @@ app.controller('EgglyController', ['$scope', function($scope) {
     return $scope.editedBookmark !== null && $scope.editedBookmark.id == bookmarkId;
   }
 
+  function deleteBookmark(bookmark) {
+    _.remove($scope.bookmarks, function(b) {
+      return b.id == bookmark.id;
+    });
+  }
+
+  $scope.createBookmark = createBookmark;
+  $scope.editedBookmark = null;
   $scope.setEditedBookmark = setEditedBookmark;
   $scope.updateBookmark    = updateBookmark;
   $scope.isSelectedBookmark = isSelectedBookmark;
+  $scope.deleteBookmark= deleteBookmark;
 
   //===========================================================================
   // CREATING AND EDITING STATES
