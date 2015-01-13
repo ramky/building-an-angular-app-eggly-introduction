@@ -37,6 +37,26 @@ app.controller('EgglyController', ['$scope', function($scope) {
   $scope.isCurrentCategory  = isCurrentCategory;
 
   //===========================================================================
+  // CRUD
+  //===========================================================================
+  function resetCreateForm() {
+    $scope.newBookmark = {
+      title: '',
+      url: '',
+      category: $scope.currentCategory.name
+    }
+  }
+
+  function createBookmark(bookmark) {
+    bookmark.id = $scope.bookmarks.length;
+    $scope.bookmarks.push(bookmark);
+    console.log($scope.bookmarks);
+    resetCreateForm();
+  }
+
+  $scope.createBookmark = createBookmark;
+
+  //===========================================================================
   // CREATING AND EDITING STATES
   //===========================================================================
   $scope.isCreating = false;
@@ -45,6 +65,7 @@ app.controller('EgglyController', ['$scope', function($scope) {
   function startCreating() {
     $scope.isCreating = true;
     $scope.isEditing  = false;
+    resetCreateForm();
   }
 
   function cancelCreating() {
